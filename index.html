@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#252525">
+  <title>محفظتي — محاكاة تجريبية</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="demo-ribbon">DEMO · محاكاة غير حقيقية</div>
+  <main class="app">
+    <section id="login" class="login panel">
+      <div class="brand"><span class="brand-mark">م</span><span>محفظتي</span></div>
+      <p class="muted">واجهة محفظة إلكترونية تجريبية</p>
+      <label for="phone">رقم الهاتف التجريبي</label>
+      <input id="phone" inputmode="numeric" value="01000000000" maxlength="11">
+      <label for="pin">كود الدخول التجريبي</label>
+      <input id="pin" inputmode="numeric" type="password" placeholder="1234" maxlength="4">
+      <button id="loginBtn">دخول للتجربة</button>
+      <small>بيانات الدخول: 01000000000 — الكود: 1234</small>
+    </section>
+
+    <section id="dashboard" hidden>
+      <header class="topbar">
+        <div><div class="muted small">أهلاً بك في</div><strong>محفظتي التجريبية</strong></div>
+        <span class="avatar">م</span>
+      </header>
+      <section class="balance">
+        <div class="muted">الرصيد الافتراضي</div>
+        <div class="amount">15,505.00 <span>جنيه</span></div>
+        <div class="demo-note">رصيد وهمي لأغراض العرض فقط</div>
+      </section>
+      <div class="actions">
+        <button class="action" data-kind="transfer">↗<span>تحويل تجريبي</span></button>
+        <button class="action" data-kind="receive">↙<span>استلام تجريبي</span></button>
+        <button class="action" data-kind="recharge">▣<span>شحن تجريبي</span></button>
+      </div>
+      <div class="section-head"><h2>آخر المعاملات</h2><span class="muted small">كلها تجريبية</span></div>
+      <div id="transactions" class="transactions"></div>
+      <button class="reset" id="resetBtn">إعادة ضبط بيانات التجربة</button>
+    </section>
+
+    <section id="receipt" hidden>
+      <button class="back" id="backBtn">← العودة للمعاملات</button>
+      <article class="receipt">
+        <div class="success-icon">✓</div>
+        <div class="receipt-amount" id="rAmount"></div>
+        <div class="receipt-desc" id="rDesc"></div>
+        <div class="receipt-card people">
+          <div class="field"><span>من</span><strong id="rFrom"></strong><b id="rFromPhone"></b></div>
+          <div class="field"><span>إلى</span><strong id="rTo"></strong><b id="rToPhone"></b></div>
+        </div>
+        <div class="receipt-card details">
+          <div><span>حالة العملية</span><b class="success-text">ناجحة · تجريبية</b></div>
+          <div><span>نوع العملية</span><b id="rType"></b></div>
+          <div><span>التاريخ</span><b id="rDate"></b></div>
+          <div><span>الوقت</span><b id="rTime"></b></div>
+          <div><span>رقم العملية</span><b id="rId"></b></div>
+        </div>
+        <div class="receipt-footer"><span class="mini-logo">م</span><span>إيصال محاكاة — ليس إثبات دفع</span></div>
+      </article>
+    </section>
+    <footer>هذا مشروع واجهة تجريبية مستقل، وليس تابعاً لأي بنك أو شركة اتصالات.</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

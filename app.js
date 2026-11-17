@@ -1,0 +1,15 @@
+const $=id=>document.getElementById(id);
+const initial=[
+ {id:"DEMO-250001",kind:"تحويل أموال تجريبي",desc:"عملية تحويل أموال تجريبية تمت بنجاح",amount:"6,505.00",from:"محمود سامي (اسم افتراضي)",fromPhone:"01000000000",to:"عميل تجريبي",toPhone:"01000000001",date:"17 نوفمبر 2026",time:"10:16:15",positive:false},
+ {id:"DEMO-250002",kind:"استلام أموال تجريبي",desc:"عملية استلام أموال تجريبية تمت بنجاح",amount:"9,500.00",from:"مرسل تجريبي",fromPhone:"01000000002",to:"محمود سامي (اسم افتراضي)",toPhone:"01000000000",date:"16 نوفمبر 2026",time:"21:17:00",positive:true},
+ {id:"DEMO-250003",kind:"شحن رصيد تجريبي",desc:"عملية شحن رصيد تجريبية",amount:"50.00",from:"محفظتي التجريبية",fromPhone:"01000000000",to:"رقم تجريبي",toPhone:"01000000003",date:"15 نوفمبر 2026",time:"14:05:22",positive:false},
+ {id:"DEMO-250004",kind:"استلام أموال تجريبي",desc:"عملية استلام أموال تجريبية تمت بنجاح",amount:"1,200.00",from:"مرسل تجريبي",fromPhone:"01000000004",to:"محمود سامي (اسم افتراضي)",toPhone:"01000000000",date:"14 نوفمبر 2026",time:"12:30:00",positive:true}
+];
+let items=initial.map(x=>({...x}));
+function show(id){$("login").hidden=true;$("dashboard").hidden=id!=="dashboard";$("receipt").hidden=id!=="receipt";}
+function render(){ $("transactions").innerHTML="";items.forEach((t,i)=>{let b=document.createElement("button");b.className="tx";b.innerHTML=`<span class="tx-main"><span class="tx-icon">${t.positive?"↓":"↗"}</span><span>${t.kind}<small>${t.date} · ${t.time}</small></span></span><b class="tx-amount ${t.positive?"positive":"negative"}">${t.positive?"+":"−"}${t.amount} ج.م</b>`;b.onclick=()=>receipt(i);$("transactions").appendChild(b);});}
+function receipt(i){let t=items[i];$("rAmount").textContent=t.amount+" جنيه";$("rDesc").textContent=t.desc;$("rFrom").textContent=t.from;$("rFromPhone").textContent=t.fromPhone;$("rTo").textContent=t.to;$("rToPhone").textContent=t.toPhone;$("rType").textContent=t.kind;$("rDate").textContent=t.date;$("rTime").textContent=t.time;$("rId").textContent=t.id;show("receipt");}
+$("loginBtn").onclick=()=>{if($("phone").value==="01000000000"&&$("pin").value==="1234"){render();show("dashboard")}else alert("استخدم بيانات الدخول التجريبية الموضحة أسفل الحقول.");};
+$("backBtn").onclick=()=>show("dashboard");
+$("resetBtn").onclick=()=>{items=initial.map(x=>({...x}));render();};
+document.querySelectorAll("[data-kind]").forEach(btn=>btn.onclick=()=>{let kind=btn.dataset.kind;let t={id:"DEMO-"+String(250005+items.length).padStart(6,"0"),kind:kind==="transfer"?"تحويل أموال تجريبي":kind==="receive"?"استلام أموال تجريبي":"شحن رصيد تجريبي",desc:"عملية تجريبية تمت إضافتها محلياً للعرض فقط",amount:kind==="receive"?"750.00":"100.00",from:kind==="receive"?"مرسل تجريبي":"محمود سامي (اسم افتراضي)",fromPhone:kind==="receive"?"01000000002":"01000000000",to:kind==="transfer"?"مستلم تجريبي":"محمود سامي (اسم افتراضي)",toPhone:kind==="transfer"?"01000000005":"01000000000",date:"17 نوفمبر 2026",time:new Date().toLocaleTimeString("en-GB"),positive:kind==="receive"};items.unshift(t);render();receipt(0);});
